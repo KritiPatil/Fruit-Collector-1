@@ -100,9 +100,11 @@ class Game{
                      
                  }
 
-                 if(fruits.isTouching(players)) {
-                    fruitGroup.destroyEach();
-                 }
+                   for(var i = 0; i < fruitGroup.lenght; i++) {
+                        if(fruitGroup.get(i).isTouching(players)) {
+                           fruitGroup.get(i).destroy();
+                        }
+                   }
                  
                   if (player.index !== null) {
                      player.update();
