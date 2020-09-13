@@ -58,7 +58,7 @@ class Game{
                          
                          fill("black");
                          textSize(25);
-                         text(allPlayers[plr].name ,x-25,y+25);
+                         text(allPlayers[plr].name ,x-30,y+25);
 
                          
                      }
@@ -100,11 +100,12 @@ class Game{
                      
                  }
 
-                   for(var i = 0; i < fruitGroup.lenght; i++) {
-                        if(fruitGroup.get(i).isTouching(players)) {
-                           fruitGroup.get(i).destroy();
-                        }
-                   }
+                 for(var i = 0; i < fruitGroup.lenght; i++) {
+                    if(fruitGroup.get(i).isTouching(players)) {
+                        score = score + 1;
+                       fruitGroup.get(i).destroy();
+                    }
+                 }
                  
                   if (player.index !== null) {
                      player.update();

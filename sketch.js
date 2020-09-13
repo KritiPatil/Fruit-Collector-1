@@ -3,6 +3,7 @@ var back_img;
 var gameState =0;
 var playerCount = 0;
 var allPlayers;
+var score = 0;
 
 var player, form,game;
 var player1,player2;
@@ -46,4 +47,6 @@ function draw() {
     
      game.end();
    }
+
+   text ("Score : "+score, 980, 20);
 }
