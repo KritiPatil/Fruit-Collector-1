@@ -51,8 +51,8 @@ class Game{
                      x = 500-allPlayers[plr].distance;
                      y=500;
                      
-                     //players[index - 1].x = x;
-                     //players[index - 1].y = y;
+                     //players[index - 1].body.x = x;
+                     //players[index - 1].body.y = y;
                        
                      if(index === player.index){
                          
@@ -73,10 +73,12 @@ class Game{
                 if (keyIsDown(RIGHT_ARROW) && player.index !== null) {
                     player.distance += 10
                     player.update();
+                    console.log(player1.distance);
                 }
                 if (keyIsDown(LEFT_ARROW) && player.index !== null) {
                     player.distance -= 10
                     player.update();
+                    console.log(player2.distance);
                 }
             
                  if (frameCount % 20 === 0) {
@@ -101,7 +103,7 @@ class Game{
                  }
 
                  for(var i = 0; i < fruitGroup.lenght; i++) {
-                    if(fruitGroup.get(i).isTouching(players)) {
+                    if(fruitGroup.get(i).isTouching(player1 || player2)) {
                         score = score + 1;
                        fruitGroup.get(i).destroy();
                     }
