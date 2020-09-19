@@ -16,23 +16,24 @@ class Game{
         });
     }
     async start() {
-        if (gameState === 0) {
-            player = new Player();
-            var playerCountRef = await database.ref('playerCount').once("value");
-            if (playerCountRef.exists()) {
-                playerCount = playerCountRef.val();
-                player.getCount();
+            if (gameState === 0) {
+                player = new Player();
+                var playerCountRef = await database.ref('playerCount').once("value");
+                if (playerCountRef.exists()) {
+                    playerCount = playerCountRef.val();
+                    player.getCount();
+                }
+                form = new Form()
+                form.display();
             }
-            form = new Form()
-            form.display();
-        }
-        player1 = createSprite(200,500);
-        player1.addImage("player1", player_img);
+    player1 = createSprite(200,500);
+    player1.addImage("player1",player_img);
     
-        player2 = createSprite(800,500);
-        player2.addImage("player2", player_img);
-        players=[player1,player2];
-    }
+    player2 = createSprite(800,500);
+    player2.addImage("player2", player_img);
+    players=[player1,player2];
+
+        }
     
     play(){
         
@@ -44,26 +45,26 @@ class Game{
                  var y=200;
                  var index =0;
                  drawSprites();
+                 var displayPosition=50;
                  for(var plr in allPlayers){
                     
-                    
+                     displayPosition +=50;
                      index = index+1;
                      x = 500-allPlayers[plr].distance;
                      y=500;
                      
-                     //players[index - 1].body.x = x;
-                     //players[index - 1].body.y = y;
+                     players[index -1].x = x;
+                     players[index - 1].y = y;
                        
                      if(index === player.index){
                          
                          fill("black");
                          textSize(25);
-                         text(allPlayers[plr].name ,x-30,y+25);
+                         text(allPlayers[plr].name ,x-25,y+25);
 
                          
                      }
-                    
-                     
+                  
                  
                  }
                 
@@ -71,14 +72,12 @@ class Game{
                  
 
                 if (keyIsDown(RIGHT_ARROW) && player.index !== null) {
-                    player.distance += 10
-                    player.update();
-                    console.log(player1.distance);
-                }
-                if (keyIsDown(LEFT_ARROW) && player.index !== null) {
                     player.distance -= 10
                     player.update();
-                    console.log(player2.distance);
+                }
+                if (keyIsDown(LEFT_ARROW) && player.index !== null) {
+                    player.distance += 10
+                    player.update();
                 }
             
                  if (frameCount % 20 === 0) {
@@ -98,19 +97,18 @@ class Game{
                          break;
                      }
                      fruitGroup.add(fruits);
-                     fruits.lifetime = 98;
                      
-                 }
-
-                 for(var i = 0; i < fruitGroup.lenght; i++) {
-                    if(fruitGroup.get(i).isTouching(player1 || player2)) {
-                        score = score + 1;
-                       fruitGroup.get(i).destroy();
-                    }
                  }
                  
                   if (player.index !== null) {
-                     player.update();
+                     for(var i=0;i<fruitGroup.length;i++){
+                         if(fruitGroup.get(i).isTouching(players[player.index-1])){
+                             
+                            fruitGroup.get(i).destroy();
+                            player.score = player.score +1;
+                            player.update();
+                         }
+                     }
                   }
                 
 
