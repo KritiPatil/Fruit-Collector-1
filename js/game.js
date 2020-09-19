@@ -97,6 +97,7 @@ class Game{
                          break;
                      }
                      fruitGroup.add(fruits);
+                     fruits.lifetime = 98;
                      
                  }
                  
